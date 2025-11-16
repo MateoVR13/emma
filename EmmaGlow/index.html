@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
     <title>Emma Glow</title>
+    <!-- Fuente Lexend desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="app-container">
@@ -19,7 +22,7 @@
                 <div id="login-form-container" class="card">
                     <h2>Iniciar Sesión</h2>
                     <form id="login-form">
-                        <div class="form-group"><label for="login-email">Correo</label><input type="email" id="login-email" required></div>
+                        <div class="form-group"><label for="login-email">Correo</label><input type="email" id="login-email" placeholder="tu@correo.com" required></div>
                         <button type="submit" class="btn btn-block">Entrar</button>
                     </form>
                     <p class="auth-switch">¿No tienes cuenta? <a href="#" id="show-register">Regístrate</a></p>
@@ -27,8 +30,8 @@
                 <div id="register-form-container" class="card" style="display: none;">
                     <h2>Crear Cuenta</h2>
                     <form id="register-form">
-                        <div class="form-group"><label for="register-name">Nombre</label><input type="text" id="register-name" required></div>
-                        <div class="form-group"><label for="register-email">Correo</label><input type="email" id="register-email" required></div>
+                        <div class="form-group"><label for="register-name">Nombre</label><input type="text" id="register-name" placeholder="Tu nombre" required></div>
+                        <div class="form-group"><label for="register-email">Correo</label><input type="email" id="register-email" placeholder="tu@correo.com" required></div>
                         <button type="submit" class="btn btn-block">Registrarse</button>
                     </form>
                     <p class="auth-switch">¿Ya tienes cuenta? <a href="#" id="show-login">Inicia sesión</a></p>
@@ -44,39 +47,79 @@
                 <div class="image-uploader">
                     <input type="file" id="image-upload-input" accept="image/*" style="display:none;">
                     <label for="image-upload-input" class="btn">Seleccionar Foto</label>
-                    <img id="image-preview" src="" alt="Vista previa de la imagen">
+                    <img id="image-preview" alt="Vista previa de la imagen">
                 </div>
                 <div id="analysis-loader" style="display: none;">
-                    <p>Analizando tu piel...</p>
-                    <div class="spinner"></div>
+                    <p>Analizando tu piel...</p><div class="spinner"></div>
                 </div>
-                <button id="start-analysis-btn" class="btn btn-block" disabled>Analizar mi Piel</button>
+                <button id="start-analysis-btn" class="btn btn-block" disabled>Continuar con el Análisis</button>
             </div>
         </main>
         
-        <!-- ===== PÁGINA DE ANÁLISIS DETALLADO (CUESTIONARIO) ===== -->
-        <main id="detailed-analysis-page" class="page">
-             <div class="card">
-                <h2>Confirma los Detalles</h2>
-                <p>Basado en nuestro análisis inicial, por favor confirma o ajusta los siguientes datos para perfeccionar tus recomendaciones.</p>
-                <form id="detailed-analysis-form">
+        <!-- ===== PÁGINA DE ANÁLISIS DE PIEL DETALLADO ===== -->
+        <main id="skin-analysis-page" class="page">
+            <div class="card">
+                <h2>Análisis de tu piel</h2>
+                <form id="skin-analysis-form">
                     <div class="form-group">
-                        <label>Tu tipo de piel:</label>
-                        <div class="radio-group">
-                            <input type="radio" name="skin-type" id="type-grasa" value="grasa"><label for="type-grasa">Grasa</label>
-                            <input type="radio" name="skin-type" id="type-seca" value="seca"><label for="type-seca">Seca</label>
-                            <input type="radio" name="skin-type" id="type-mixta" value="mixta"><label for="type-mixta">Mixta</label>
-                            <input type="radio" name="skin-type" id="type-sensible" value="sensible"><label for="type-sensible">Sensible</label>
+                        <label>Tipo de piel</label>
+                        <div class="radio-group skin-type">
+                            <input type="radio" id="skin-type-1" name="skin-type" value="normal"><label for="skin-type-1">Normal</label>
+                            <input type="radio" id="skin-type-2" name="skin-type" value="seca"><label for="skin-type-2">Seca</label>
+                            <input type="radio" id="skin-type-3" name="skin-type" value="grasa"><label for="skin-type-3">Grasa</label>
+                            <input type="radio" id="skin-type-4" name="skin-type" value="mixta"><label for="skin-type-4">Mixta</label>
+                            <input type="radio" id="skin-type-5" name="skin-type" value="sensible"><label for="skin-type-5">Sensible</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Tus principales preocupaciones:</label>
+                        <label>¿A qué productos o ingredientes eres alérgico/a?</label>
                         <div class="checkbox-group">
-                            <input type="checkbox" name="skin-concern" id="concern-acne" value="acne"><label for="concern-acne">Acné</label>
-                            <input type="checkbox" name="skin-concern" id="concern-arrugas" value="arrugas"><label for="concern-arrugas">Arrugas</label>
-                            <input type="checkbox" name="skin-concern" id="concern-manchas" value="manchas"><label for="concern-manchas">Manchas</label>
-                            <input type="checkbox" name="skin-concern" id="concern-poros" value="poros"><label for="concern-poros">Poros</label>
+                            <input type="checkbox" id="allergy-1" name="allergies" value="fragancias"><label for="allergy-1">Fragancias</label>
+                            <input type="checkbox" id="allergy-2" name="allergies" value="conservantes"><label for="allergy-2">Conservantes</label>
+                            <input type="checkbox" id="allergy-3" name="allergies" value="alcohol"><label for="allergy-3">Alcohol</label>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tendencias o condiciones de tu piel</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="condition-1" name="conditions" value="acne"><label for="condition-1">Acné</label>
+                            <input type="checkbox" id="condition-2" name="conditions" value="arrugas"><label for="condition-2">Arrugas</label>
+                            <input type="checkbox" id="condition-3" name="conditions" value="manchas"><label for="condition-3">Manchas</label>
+                            <input type="checkbox" id="condition-4" name="conditions" value="poros-dilatados"><label for="condition-4">Poros dilatados</label>
+                            <input type="checkbox" id="condition-5" name="conditions" value="rojeces"><label for="condition-5">Rojeces</label>
+                            <input type="checkbox" id="condition-6" name="conditions" value="deshidratacion"><label for="condition-6">Deshidratación</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-block">Continuar</button>
+                </form>
+            </div>
+        </main>
+
+        <!-- ===== PÁGINA DE FACTORES ADICIONALES ===== -->
+        <main id="additional-factors-page" class="page">
+            <div class="card">
+                <h2>Factores adicionales</h2>
+                <form id="additional-factors-form">
+                    <div class="form-group">
+                        <label for="stress-level">Nivel de estrés (1 = bajo, 10 = alto)</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" class="slider" id="stress-level">
+                            <div class="slider-labels"><span>Bajo</span><span>Moderado</span><span>Alto</span></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sleep-hours">Horas de sueño promedio</label>
+                        <select id="sleep-hours">
+                            <option value="menos-5">Menos de 5 horas</option>
+                            <option value="5-6">5-6 horas</option>
+                            <option value="6-7" selected>6-7 horas</option>
+                            <option value="7-8">7-8 horas</option>
+                            <option value="mas-8">Más de 8 horas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Ubicación (para considerar clima)</label>
+                        <input type="text" id="location" placeholder="Ciudad, país">
                     </div>
                     <button type="submit" class="btn btn-block">Ver mis Recomendaciones</button>
                 </form>
