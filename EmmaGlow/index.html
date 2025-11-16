@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+    <title>Emma Glow</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+
+        <!-- ===== PÁGINA DE INICIO / LOGIN ===== -->
+        <main id="login-page" class="page active">
+            <div class="auth-container">
+                <h1 class="logo">Emma Glow 🌸</h1>
+                <p class="tagline">Tu viaje hacia una piel radiante comienza aquí.</p>
+                <div id="login-form-container" class="card">
+                    <h2>Iniciar Sesión</h2>
+                    <form id="login-form">
+                        <div class="form-group"><label for="login-email">Correo</label><input type="email" id="login-email" required></div>
+                        <button type="submit" class="btn btn-block">Entrar</button>
+                    </form>
+                    <p class="auth-switch">¿No tienes cuenta? <a href="#" id="show-register">Regístrate</a></p>
+                </div>
+                <div id="register-form-container" class="card" style="display: none;">
+                    <h2>Crear Cuenta</h2>
+                    <form id="register-form">
+                        <div class="form-group"><label for="register-name">Nombre</label><input type="text" id="register-name" required></div>
+                        <div class="form-group"><label for="register-email">Correo</label><input type="email" id="register-email" required></div>
+                        <button type="submit" class="btn btn-block">Registrarse</button>
+                    </form>
+                    <p class="auth-switch">¿Ya tienes cuenta? <a href="#" id="show-login">Inicia sesión</a></p>
+                </div>
+            </div>
+        </main>
+        
+        <!-- ===== PÁGINA DE ANÁLISIS POR IMAGEN ===== -->
+        <main id="image-analysis-page" class="page">
+            <div class="card">
+                <h2>Análisis por Imagen</h2>
+                <p>Sube una foto de tu rostro sin maquillaje y con buena luz para un primer análisis.</p>
+                <div class="image-uploader">
+                    <input type="file" id="image-upload-input" accept="image/*" style="display:none;">
+                    <label for="image-upload-input" class="btn">Seleccionar Foto</label>
+                    <img id="image-preview" src="" alt="Vista previa de la imagen">
+                </div>
+                <div id="analysis-loader" style="display: none;">
+                    <p>Analizando tu piel...</p>
+                    <div class="spinner"></div>
+                </div>
+                <button id="start-analysis-btn" class="btn btn-block" disabled>Analizar mi Piel</button>
+            </div>
+        </main>
+        
+        <!-- ===== PÁGINA DE ANÁLISIS DETALLADO (CUESTIONARIO) ===== -->
+        <main id="detailed-analysis-page" class="page">
+             <div class="card">
+                <h2>Confirma los Detalles</h2>
+                <p>Basado en nuestro análisis inicial, por favor confirma o ajusta los siguientes datos para perfeccionar tus recomendaciones.</p>
+                <form id="detailed-analysis-form">
+                    <div class="form-group">
+                        <label>Tu tipo de piel:</label>
+                        <div class="radio-group">
+                            <input type="radio" name="skin-type" id="type-grasa" value="grasa"><label for="type-grasa">Grasa</label>
+                            <input type="radio" name="skin-type" id="type-seca" value="seca"><label for="type-seca">Seca</label>
+                            <input type="radio" name="skin-type" id="type-mixta" value="mixta"><label for="type-mixta">Mixta</label>
+                            <input type="radio" name="skin-type" id="type-sensible" value="sensible"><label for="type-sensible">Sensible</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tus principales preocupaciones:</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="skin-concern" id="concern-acne" value="acne"><label for="concern-acne">Acné</label>
+                            <input type="checkbox" name="skin-concern" id="concern-arrugas" value="arrugas"><label for="concern-arrugas">Arrugas</label>
+                            <input type="checkbox" name="skin-concern" id="concern-manchas" value="manchas"><label for="concern-manchas">Manchas</label>
+                            <input type="checkbox" name="skin-concern" id="concern-poros" value="poros"><label for="concern-poros">Poros</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-block">Ver mis Recomendaciones</button>
+                </form>
+            </div>
+        </main>
+
+        <!-- ===== PÁGINA DE RECOMENDACIONES (PRODUCTOS) ===== -->
+        <main id="recommendations-page" class="page">
+            <div class="card">
+                <h2>Tu Rutina Ideal ✨</h2>
+                <div id="product-grid" class="product-grid"></div>
+                <button id="save-routine-btn" class="btn btn-block" style="margin-top: 20px;">Guardar Rutina en mi Historial</button>
+            </div>
+        </main>
+
+        <!-- ===== PÁGINA DE HISTORIAL ===== -->
+        <main id="history-page" class="page">
+            <div class="card">
+                <h2>Tu Historial de Rutinas</h2>
+                <div id="history-list"><p>Aquí aparecerán tus rutinas guardadas.</p></div>
+            </div>
+        </main>
+        
+        <!-- ===== CHATBOT FLOTANTE Y CONTENEDOR ===== -->
+        <div id="chatbot-fab" class="chatbot-fab">💬</div>
+        <div id="chatbot-container" class="chatbot-container">
+            <div class="chatbot-header"><h3>Habla con Emma 🌸</h3><button id="close-chat-btn">&times;</button></div>
+            <div id="chat-messages" class="chat-messages">
+                <div class="message emma">¡Hola! Soy Emma. Pregúntame sobre ingredientes, productos o rutinas de skincare.</div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Escribe tu mensaje..."><button id="send-chat-btn">▶</button>
+            </div>
+        </div>
+
+        <!-- ===== BARRA DE NAVEGACIÓN INFERIOR ===== -->
+        <nav class="bottom-nav">
+            <button class="nav-btn" data-page="image-analysis-page">Análisis</button>
+            <button class="nav-btn" data-page="recommendations-page">Productos</button>
+            <button class="nav-btn" data-page="history-page">Historial</button>
+        </nav>
+    </div>
+
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
