@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
         addMessageToChat(userMessage, 'user');
         chatInput.value = '';
         chatInput.disabled = true;
-
+    
         try {
             const response = await fetch('/.netlify/functions/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: userMessage }) });
             if (!response.ok) throw new Error(`Error del servidor`);
@@ -230,4 +230,5 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initializeApp();
 });
+
 
