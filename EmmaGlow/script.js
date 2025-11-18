@@ -194,11 +194,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Usa esta versión simple por ahora
     function addMessageToChat(text, sender) {
         const msgDiv = document.createElement('div');
         msgDiv.className = `message ${sender}`;
-        msgDiv.textContent = text; // Usamos textContent, no innerHTML
+    
+        const rawHtml = marked.parse(text);
+        const sanitizedHtml = DOMPurify.sanitize(rawHtml);
+    
+        msgDiv.innerHTML = sanitizedHtml;
+    
         chatMessages.appendChild(msgDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
@@ -220,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initializeApp();
 });
+
 
 
 
