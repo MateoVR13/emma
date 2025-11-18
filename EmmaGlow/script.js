@@ -197,10 +197,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function addMessageToChat(text, sender) {
         const msgDiv = document.createElement('div');
         msgDiv.className = `message ${sender}`;
-        msgDiv.textContent = text;
+    
+        // --- LÓGICA DE FORMATEO MEJORADA ---
+        
+        // 1. Convertimos el texto de Markdown a HTML usando la librería Marked.
+        const rawHtml = marked.parse(text);
+    
+        // 2. "Limpiamos" ese HTML para asegurarnos de que es 100% seguro.
+        // Esto previene cualquier código malicioso y arregla problemas de formato.
+        const sanitizedHtml = DOMPurify.sanitize(rawHtml);
+    
+        // 3. Insertamos el HTML limpio y seguro en la burbuja del chat.
+        msgDiv.innerHTML = sanitizedHtml;
+    
         chatMessages.appendChild(msgDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+
 
     // --- INICIALIZACIÓN ---
     function initializeApp() {
@@ -218,3 +230,4 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initializeApp();
 });
+
